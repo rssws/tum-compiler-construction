@@ -1,4 +1,5 @@
-package e1;
+package exercise_1_3;
+
 public class Transition {
     private char c;
     private State next;
