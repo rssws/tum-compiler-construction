@@ -1,8 +1,8 @@
-package exercise_1_3;
+package exercise_1_3.compiler_construction.tum.zhongpin.wang;
 
 import java.io.IOException;
 
-public class Main {
+public class App {
      public static void main(String[] args) {
         Automaton automaton = new Automaton();
 

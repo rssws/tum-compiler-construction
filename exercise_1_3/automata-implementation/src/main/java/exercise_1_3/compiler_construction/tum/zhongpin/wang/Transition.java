@@ -1,4 +1,4 @@
-package exercise_1_3;
+package exercise_1_3.compiler_construction.tum.zhongpin.wang;
 
 public class Transition {
     private char c;
