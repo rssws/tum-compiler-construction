@@ -6,7 +6,6 @@ public class Letter extends RegexTree {
     public Letter(char letter) {
         super();
         this.letter = letter;
-        this.empty = false;
     }
 
     public char getLetter() {
@@ -14,22 +13,12 @@ public class Letter extends RegexTree {
     }
 
     @Override
-    public void accept(RegexTreeEmptyVisitor regexTreeEmptyVisitor) {
-        regexTreeEmptyVisitor.visit(this);
-    }
-
-    @Override
-    public void accept(RegexTreeFirstVisitor regexTreeFirstVisitor) {
-        regexTreeFirstVisitor.visit(this);
+    public void accept(RegexTreeEmptyFirstLastVisitor regexTreeEmptyFirstLastVisitor) {
+        regexTreeEmptyFirstLastVisitor.visit(this);
     }
 
     @Override
     public void accept(RegexTreeNextVisitor regexTreeNextVisitor) {
         regexTreeNextVisitor.visit(this);
-    }
-
-    @Override
-    public void accept(RegexTreeLastVisitor regexTreeLastVisitor) {
-        regexTreeLastVisitor.visit(this);
     }
 }
