@@ -96,7 +96,7 @@ public class Automaton {
 
         for (State state: states) {
             for (Transition transition: state.getTransitions()) {
-                stringBuilder.append("    " + state.getName() + " -> " + transition.getNext().getName() + "[label=\"" + transition.getC() + "\"]\n");
+                stringBuilder.append("    " + state.getName() + " -> " + transition.getNext().getName() + " [label=\"" + transition.getC() + "\"]\n");
             }
         }
 
