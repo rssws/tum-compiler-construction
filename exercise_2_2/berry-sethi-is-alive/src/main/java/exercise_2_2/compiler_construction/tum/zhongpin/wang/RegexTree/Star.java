@@ -1,4 +1,7 @@
-package exercise_2_2.compiler_construction.tum.zhongpin.wang;
+package exercise_2_2.compiler_construction.tum.zhongpin.wang.RegexTree;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Star extends RegexTree {
     private RegexTree child;
@@ -14,6 +17,13 @@ public class Star extends RegexTree {
 
     public void setChild(RegexTree child) {
         this.child = child;
+    }
+
+    @Override
+    public List<RegexTree> getChildren() {
+        return new ArrayList<RegexTree>() {{
+            add(child);
+        }};
     }
 
     @Override

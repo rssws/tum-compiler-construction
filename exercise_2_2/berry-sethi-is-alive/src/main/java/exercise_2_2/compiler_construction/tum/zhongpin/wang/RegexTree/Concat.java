@@ -1,10 +1,13 @@
-package exercise_2_2.compiler_construction.tum.zhongpin.wang;
+package exercise_2_2.compiler_construction.tum.zhongpin.wang.RegexTree;
 
-public class Or extends RegexTree {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Concat extends RegexTree {
     private RegexTree left;
     private RegexTree right;
 
-    public Or(RegexTree left, RegexTree right) {
+    public Concat(RegexTree left, RegexTree right) {
         super();
         this.left = left;
         this.right = right;
@@ -24,6 +27,14 @@ public class Or extends RegexTree {
 
     public void setRight(RegexTree right) {
         this.right = right;
+    }
+
+    @Override
+    public List<RegexTree> getChildren() {
+        return new ArrayList<RegexTree>() {{
+            add(left);
+            add(right);
+        }};
     }
 
     @Override

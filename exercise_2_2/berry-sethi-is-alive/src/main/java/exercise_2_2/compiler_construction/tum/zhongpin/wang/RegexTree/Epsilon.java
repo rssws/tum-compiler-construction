@@ -1,4 +1,7 @@
-package exercise_2_2.compiler_construction.tum.zhongpin.wang;
+package exercise_2_2.compiler_construction.tum.zhongpin.wang.RegexTree;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Epsilon extends RegexTree {
     public Epsilon() {
@@ -13,5 +16,10 @@ public class Epsilon extends RegexTree {
     @Override
     public void accept(RegexTreeNextVisitor regexTreeNextVisitor) {
         regexTreeNextVisitor.visit(this);
+    }
+
+    @Override
+    public List<RegexTree> getChildren() {
+        return new ArrayList<>();
     }
 }
