@@ -90,7 +90,15 @@ public class Automaton {
             size="8,5"
             node [shape=none,width=0,height=0,margin=0]; start [label=""];
             node [shape=doublecircle];
-            4;5;
+        """);
+        for (State state: states) {
+            if (state.isFinal()) {
+                
+                stringBuilder.append("    " + state.getName() + "\n");
+            }
+        }
+
+        stringBuilder.append("""
             node [shape=circle];
         """);
 
