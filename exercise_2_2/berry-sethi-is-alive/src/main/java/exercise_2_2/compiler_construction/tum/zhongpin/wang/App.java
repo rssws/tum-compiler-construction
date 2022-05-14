@@ -32,6 +32,8 @@ public class App {
             )
         );
 
+        //regexTree = letter('a');
+
         System.out.println("Transforming RegexTree to NFA ...");
         Automaton automaton = regexTree.transformToAutomaton();
 
@@ -54,9 +56,10 @@ public class App {
         System.out.println("Converting DOT file to pdf ...");
         Runtime rt = Runtime.getRuntime();
         try {
-            rt.exec("dot -Tpdf nfa.gv -O");
+            Process dot = rt.exec("dot -Tpdf nfa.gv -O");
+            dot.waitFor();
             rt.exec("open -a Preview.app nfa.gv.pdf");
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

@@ -66,7 +66,7 @@ public abstract class RegexTree {
 
         // state 0 must be start state, could be final state depending on empty attribute of root
         State state0 = new State("0", true, this.empty);
-        regexTreeStateMap.put(this, state0);
+        regexTreeStateMap.put(new Epsilon(), state0);
         
         automaton.addState(state0);
 
@@ -97,15 +97,16 @@ public abstract class RegexTree {
         for (var entry: regexTreeStateMap.entrySet()) {
             RegexTree curRegexTree = entry.getKey();
             State curState = entry.getValue();
-            
+
             if (curRegexTree instanceof Letter) {
                 // leaves
                 for (RegexTree nextRegexTree: curRegexTree.getNext()) {
                     curState.addTransistion(((Letter) nextRegexTree).getLetter(), regexTreeStateMap.get(nextRegexTree));
                 }
-            } else {
-                // root / start state
-                for (RegexTree firstRegexTree: curRegexTree.getFirst()) {
+            }
+
+            if (curState.isStart()) {
+                for (RegexTree firstRegexTree: root.getFirst()) {
                     curState.addTransistion(((Letter) firstRegexTree).getLetter(), regexTreeStateMap.get(firstRegexTree));
                 }
             }
