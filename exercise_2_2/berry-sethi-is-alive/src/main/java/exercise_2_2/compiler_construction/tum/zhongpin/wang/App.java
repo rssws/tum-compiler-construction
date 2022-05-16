@@ -33,58 +33,36 @@ public class App {
             )
         );
 
-        //regexTree = letter('a');
+        // regexTree = letter('a');
 
-        regexTree = concat(
-            letter('a'),
-            concat(
-                letter('b'), 
-                concat(
-                    letter('c'),
-                    or(
-                        star(
-                            concat(
-                                letter('a'),
-                                concat(
-                                    letter('b'), 
-                                    letter('c')
-                                )
-                            )
-                        ), 
-                        letter('a')
-                    )
-                )
-            )
-        );
+        // regexTree = concat(
+        //     letter('a'),
+        //     concat(
+        //         letter('b'), 
+        //         concat(
+        //             letter('c'),
+        //             or(
+        //                 star(
+        //                     concat(
+        //                         letter('a'),
+        //                         concat(
+        //                             letter('b'), 
+        //                             letter('c')
+        //                         )
+        //                     )
+        //                 ), 
+        //                 letter('a')
+        //             )
+        //         )
+        //     )
+        // );
 
         System.out.println("Transforming RegexTree to NFA ...");
         Automaton automaton = regexTree.transformToAutomaton();
 
-        System.out.println("Printing DOT string...");
-        System.out.println("\n------------");
-        System.out.println(automaton.toDOTString());
-
-        System.out.println("Writing DOT string to file ...");
-        PrintWriter writer;
-        try {
-            writer = new PrintWriter("nfa.gv", "UTF-8");
-            writer.println(automaton.toDOTString());
-            writer.close();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
-        }
-
-        System.out.println("Converting DOT file to pdf ...");
-        Runtime rt = Runtime.getRuntime();
-        try {
-            Process dot = rt.exec("dot -Tpdf nfa.gv -O");
-            dot.waitFor();
-            rt.exec("open -a Preview.app nfa.gv.pdf");
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
+        printDOTString(automaton);
+        writeDOTStringToFile(automaton);
+        convertAndShowPDF();
 
         while (true) {
             try {
@@ -99,9 +77,45 @@ public class App {
                 System.out.print("\t| ");
                 System.out.print("Finished: " + automaton.isFinished());
                 System.out.println();
+                
+                writeDOTStringToFile(automaton);
+                convertAndShowPDF();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public static void printDOTString(Automaton automaton) {
+        System.out.println("Printing DOT string...");
+        System.out.println("\n------------");
+        System.out.println(automaton.toDOTString());
+    }
+
+    public static void writeDOTStringToFile(Automaton automaton) {
+        // System.out.println("Writing DOT string to file ...");
+        PrintWriter writer;
+        try {
+            writer = new PrintWriter("nfa.gv", "UTF-8");
+            writer.println(automaton.toDOTString());
+            writer.close();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    public static void convertAndShowPDF() {
+        System.out.println("Converting DOT file to pdf ...");
+        Runtime rt = Runtime.getRuntime();
+        try {
+            Process dot = rt.exec("dot -Tpdf nfa.gv -O");
+            dot.waitFor();
+            Process open = rt.exec("code nfa.gv.pdf");
+            open.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

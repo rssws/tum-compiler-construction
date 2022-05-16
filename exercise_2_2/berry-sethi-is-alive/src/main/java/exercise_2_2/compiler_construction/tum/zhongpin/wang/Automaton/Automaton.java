@@ -110,6 +110,10 @@ public class Automaton {
             }
         }
 
+        for (State state: currentStates) {
+            stringBuilder.append("    " + state.getName() + " [style=filled, fillcolor=green]\n");
+        }
+
         stringBuilder.append("""
             start -> 0;
         }
