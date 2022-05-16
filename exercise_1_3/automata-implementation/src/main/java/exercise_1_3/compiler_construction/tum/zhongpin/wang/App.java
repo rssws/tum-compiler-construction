@@ -33,7 +33,11 @@ public class App {
                 char c = (char) System.in.read();
                 if (c < 32 || c > 126) continue;
                 automaton.next(c);
-                System.out.print("State: " + automaton.getCurrentState().getName());
+                
+                System.out.print("State: ");
+                for (State state: automaton.getCurrentState()) {
+                    System.out.print(state.getName() + " ");
+                }
                 System.out.print("\t| ");
                 System.out.print("Finished: " + automaton.isFinished());
                 System.out.println();

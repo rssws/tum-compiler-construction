@@ -7,8 +7,8 @@ import javax.management.RuntimeErrorException;
 
 public class Automaton {
     public final List<State> states;
-    private State currentState;
-    private State startState;
+    private List<State> currentStates = new ArrayList<>();
+    private List<State> startStates = new ArrayList<>();
     private List<State> finalStates = new ArrayList<>();
     private boolean isFinalized = false;
 
@@ -22,17 +22,17 @@ public class Automaton {
 
     public boolean isFinished() throws RuntimeErrorException {
         checkFinalization();
-        return finalStates.contains(currentState);
+        for (State state: currentStates) {
+            if (finalStates.contains(state)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public State getCurrentState() throws RuntimeErrorException {
+    public List<State> getCurrentState() throws RuntimeErrorException {
         checkFinalization();
-        return currentState;
-    }
-
-    public void setCurrentState(State currentState) throws RuntimeErrorException {
-        checkFinalization();
-        this.currentState = currentState;
+        return currentStates;
     }
 
     public void addState(State state) {
@@ -42,13 +42,7 @@ public class Automaton {
     public void finalize() throws RuntimeErrorException {
         for (State state: states) {
             if (state.isStart()) {
-                if (startState == null) {
-                    startState = state;
-                } else {
-                    throw new RuntimeErrorException(
-                        new Error("There can be only one start state!")
-                    );
-                }
+                startStates.add(state);
             }
             if (state.isFinal()) {
                 finalStates.add(state);
@@ -59,12 +53,12 @@ public class Automaton {
                 );
             }
         }
-        if (startState == null) {
+        if (startStates.size() == 0) {
             throw new RuntimeErrorException(
-                new Error("There must be a start state!")
+                new Error("There must be at least one start state!")
             );
         } else {
-            this.currentState = startState;
+            this.currentStates.addAll(startStates);
         }
         isFinalized = true;
     }
@@ -79,9 +73,17 @@ public class Automaton {
 
     public void next(char c) {
         checkFinalization();
-        this.currentState = this.currentState.next(c);
+        List<State> nextStates = new ArrayList<>();
+        for (State state: currentStates) {
+            nextStates.addAll(state.next(c));
+        }
+        this.currentStates.clear();
+        this.currentStates.addAll(nextStates);
+        if (this.currentStates.size() == 0) {
+            this.currentStates.add(State.errorState);
+        }
     }
-
+    
     public String toDOTString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("""

@@ -2,7 +2,6 @@ package exercise_1_3.compiler_construction.tum.zhongpin.wang;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class State {
     private String name;
@@ -44,8 +43,12 @@ public class State {
     public void addTransistion(char c, State next) {
         transitions.add(new Transition(c, next));
     }
-    public State next(char c) {
-        Optional<Transition> t = transitions.stream().filter(transition -> transition.getC() == c).findFirst();
-        return t.isPresent() ? t.get().getNext() : errorState;
+    public List<State> next(char c) {
+        List<Transition> filteredTransitions = transitions.stream().filter(transition -> transition.getC() == c).toList();
+        List<State> next = new ArrayList<>();
+        for (Transition transition: filteredTransitions) {
+            next.add(transition.getNext());
+        }
+        return next;
     }
 }

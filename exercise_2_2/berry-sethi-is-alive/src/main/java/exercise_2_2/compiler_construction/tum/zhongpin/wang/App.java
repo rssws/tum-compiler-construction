@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import exercise_2_2.compiler_construction.tum.zhongpin.wang.Automaton.Automaton;
+import exercise_2_2.compiler_construction.tum.zhongpin.wang.Automaton.State;
 import exercise_2_2.compiler_construction.tum.zhongpin.wang.RegexTree.Concat;
 import exercise_2_2.compiler_construction.tum.zhongpin.wang.RegexTree.Epsilon;
 import exercise_2_2.compiler_construction.tum.zhongpin.wang.RegexTree.Letter;
@@ -34,6 +35,28 @@ public class App {
 
         //regexTree = letter('a');
 
+        regexTree = concat(
+            letter('a'),
+            concat(
+                letter('b'), 
+                concat(
+                    letter('c'),
+                    or(
+                        star(
+                            concat(
+                                letter('a'),
+                                concat(
+                                    letter('b'), 
+                                    letter('c')
+                                )
+                            )
+                        ), 
+                        letter('a')
+                    )
+                )
+            )
+        );
+
         System.out.println("Transforming RegexTree to NFA ...");
         Automaton automaton = regexTree.transformToAutomaton();
 
@@ -61,6 +84,24 @@ public class App {
             rt.exec("open -a Preview.app nfa.gv.pdf");
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+        }
+
+        while (true) {
+            try {
+                char c = (char) System.in.read();
+                if (c < 32 || c > 126) continue;
+                automaton.next(c);
+                
+                System.out.print("State: ");
+                for (State state: automaton.getCurrentState()) {
+                    System.out.print(state.getName() + " ");
+                }
+                System.out.print("\t| ");
+                System.out.print("Finished: " + automaton.isFinished());
+                System.out.println();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
