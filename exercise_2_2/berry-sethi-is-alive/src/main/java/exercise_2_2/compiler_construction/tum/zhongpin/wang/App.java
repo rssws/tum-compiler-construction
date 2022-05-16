@@ -107,7 +107,7 @@ public class App {
     }
 
     public static void convertAndShowPDF() {
-        System.out.println("Converting DOT file to pdf ...");
+        // System.out.println("Converting DOT file to pdf ...");
         Runtime rt = Runtime.getRuntime();
         try {
             Process dot = rt.exec("dot -Tpdf nfa.gv -O");
