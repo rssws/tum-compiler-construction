@@ -57,18 +57,24 @@ public class App {
         //     )
         // );
 
+        boolean usePartialDFA = true;
+
         System.out.println("Transforming RegexTree to NFA ...");
-        Automaton automaton = regexTree.transformToAutomaton();
+        Automaton automaton = regexTree.transformToAutomaton(usePartialDFA);
 
         System.out.println("---------");
         System.out.println(automaton.toDOTString());
-        System.out.println("---------");
-        System.out.println(automaton.partialToDOTString());
+        if (usePartialDFA) {
+            System.out.println("---------");
+            System.out.println(automaton.partialToDOTString());
+        }
 
         writeStringToFile(automaton.toDOTString(), "nfa.gv");
-        writeStringToFile(automaton.partialToDOTString(), "partial_dfa.gv");
         convertAndShowPDF("nfa.gv");
-        convertAndShowPDF("partial_dfa.gv");
+        if (usePartialDFA) {
+            writeStringToFile(automaton.partialToDOTString(), "partial_dfa.gv");
+            convertAndShowPDF("partial_dfa.gv");
+        }
 
         while (true) {
             try {
@@ -85,9 +91,11 @@ public class App {
                 System.out.println();
                 
                 writeStringToFile(automaton.toDOTString(), "nfa.gv");
-                writeStringToFile(automaton.partialToDOTString(), "partial_dfa.gv");
                 convertAndShowPDF("nfa.gv");
-                convertAndShowPDF("partial_dfa.gv");
+                if (usePartialDFA) {
+                    writeStringToFile(automaton.partialToDOTString(), "partial_dfa.gv");
+                    convertAndShowPDF("partial_dfa.gv");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

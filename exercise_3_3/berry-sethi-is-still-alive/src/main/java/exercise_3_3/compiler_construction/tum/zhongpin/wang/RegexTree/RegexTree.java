@@ -58,10 +58,14 @@ public abstract class RegexTree {
     }
 
     public Automaton transformToAutomaton() {
+        return transformToAutomaton(true);
+    }
+
+    public Automaton transformToAutomaton(boolean usePartialDFA) {
         this.accept(regexTreeEmptyFirstLastVisitor);
         this.accept(regexTreeNextVisitor);
 
-        Automaton automaton = new Automaton();
+        Automaton automaton = new Automaton(usePartialDFA);
         Map<RegexTree, State> regexTreeStateMap = new HashMap<>();
 
         // state 0 must be start state, could be final state depending on empty attribute of root
