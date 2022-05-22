@@ -4,11 +4,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>exercise_2_2.compiler_construction.tum.zhongpin.wang</groupId>
-  <artifactId>berry-sethi-is-alive</artifactId>
+  <groupId>exercise_3_3.compiler_construction.tum.zhongpin.wang</groupId>
+  <artifactId>berry-sethi-is-still-alive</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>berry-sethi-is-alive</name>
+  <name>berry-sethi-is-still-alive</name>
   <url>https://github.com/rssws/tum-compiler-construction</url>
 
   <properties>

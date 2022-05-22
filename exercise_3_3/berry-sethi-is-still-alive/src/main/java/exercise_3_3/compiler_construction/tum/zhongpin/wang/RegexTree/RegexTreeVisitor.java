@@ -1,4 +1,4 @@
-package exercise_2_2.compiler_construction.tum.zhongpin.wang.RegexTree;
+package exercise_3_3.compiler_construction.tum.zhongpin.wang.RegexTree;
 
 public interface RegexTreeVisitor {
     public void visit(Concat concat);

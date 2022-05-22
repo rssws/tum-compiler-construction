@@ -1,4 +1,4 @@
-package exercise_2_2.compiler_construction.tum.zhongpin.wang.Automaton;
+package exercise_3_3.compiler_construction.tum.zhongpin.wang.Automaton;
 
 public class Transition {
     private char c;

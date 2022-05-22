@@ -1,4 +1,4 @@
-package exercise_2_2.compiler_construction.tum.zhongpin.wang.RegexTree;
+package exercise_3_3.compiler_construction.tum.zhongpin.wang.RegexTree;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,8 +7,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 
-import exercise_2_2.compiler_construction.tum.zhongpin.wang.Automaton.Automaton;
-import exercise_2_2.compiler_construction.tum.zhongpin.wang.Automaton.State;
+import exercise_3_3.compiler_construction.tum.zhongpin.wang.Automaton.Automaton;
+import exercise_3_3.compiler_construction.tum.zhongpin.wang.Automaton.State;
 
 public abstract class RegexTree {
     private boolean empty;
@@ -74,8 +74,6 @@ public abstract class RegexTree {
 
         convertStates(this, this, regexTreeStateMap, automaton, curIdx);
         convertTransitions(this, regexTreeStateMap);
-
-        automaton.finalize();
 
         return automaton;
     }
