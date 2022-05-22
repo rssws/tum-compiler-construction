@@ -1,5 +1,7 @@
 # TUM Compiler Construction - Code Exercises
 
-exercise 1.3 -> Automata Implementation
+Exercise 1.3 -> Automata Implementation
 
-exercise 2.2 -> Berry-Sethi is alive!
+Exercise 2.2 -> Berry-Sethi is alive!
+
+Exercise 3.3 -> Berry-Sethi is still alive!
