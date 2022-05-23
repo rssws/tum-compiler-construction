@@ -122,7 +122,7 @@ public class App {
         try {
             Process dot = rt.exec("dot -Tpdf " + filename + " -O");
             dot.waitFor();
-            Process open = rt.exec("code " + filename + ".pdf");
+            Process open = rt.exec("open -a Skim.app " + filename + ".pdf");
             open.waitFor();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();

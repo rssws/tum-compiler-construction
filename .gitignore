@@ -24,3 +24,11 @@ hs_err_pid*
 
 target
 .vscode
+
+# intellij
+.idea
+*.iml
+
+# output of graphviz dot
+*.gv
+*.pdf
