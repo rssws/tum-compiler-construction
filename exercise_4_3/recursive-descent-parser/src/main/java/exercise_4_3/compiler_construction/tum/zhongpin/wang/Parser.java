@@ -19,9 +19,12 @@ public class Parser {
         input = input.substring(1);
 
         // start parsing with the start symbol if input is not empty
-
-        // TODO
-
+        if (lookahead == '$' || parse_S()) {
+            System.out.println(s + " accepted!");
+        } else {
+            System.out.println(s + " rejected!");
+        }
+        System.out.println("---------");
     }
 
     /* consumes next input character, and compares to c
@@ -29,8 +32,11 @@ public class Parser {
        side-effect: shifts lookahead window one step forward
     */
     private boolean nextChar(char c) {
-        // TODO
-        return false;
+        // System.out.println(c);
+        if (lookahead != c) return false;
+        lookahead = input.charAt(0);
+        input = input.substring(1);
+        return true;
     }
 
     /* S -> As
@@ -38,8 +44,7 @@ public class Parser {
         returns false otherwise
     */
     private boolean parse_S() {
-        // TODO
-        return false;
+        return parse_A() && nextChar('s');
     }
 
     /* A -> aA | 𝝐
@@ -47,7 +52,18 @@ public class Parser {
         returns false otherwise
     */
     private boolean parse_A() {
-        //TODO
-        return false;
+        switch(lookahead) {
+            case 'a':
+                return nextChar('a') && parse_A();
+            case 's':
+                return true;
+            default:
+                if (lookahead == '$') {
+                    System.out.println("Expect the next char to be 'a' or 's', but reached the end of the input.");
+                } else {
+                    System.out.println("Expect the next char to be 'a' or 's', but received '" + lookahead + "' instead.");
+                }
+                return false;
+        }
     }
 }
