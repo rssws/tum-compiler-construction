@@ -16,6 +16,8 @@ int yylex(void);
 %token LPAREN
 %token RPAREN
 
+%right STAR
+%left ARROW
 
 %%
 
